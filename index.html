@@ -19,7 +19,7 @@
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
   <style>
-    /* Subbaan website v1.2.1 · Gruvbox Dark */
+    /* Subbaan website v1.2.2 · Gruvbox Dark */
     :root {
       color-scheme: dark;
       --bg: #1d2021; --panel: #282828; --panel2: #32302f; --raise: #3c3836;
@@ -372,7 +372,7 @@
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>© <span id="year">2026</span> Subbaan · Website v1.2.1<span id="built"></span></span>
+    <span>© <span id="year">2026</span> Subbaan · Website v1.2.2<span id="built"></span><span id="visits"></span></span>
     <span><a href="#top">Top ↑</a><a href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">Ko-fi</a></span>
   </div>
 </footer>
@@ -402,7 +402,7 @@
 
 <script src="assets/releases.js"></script>
 <script>
-// Subbaan website v1.2.1
+// Subbaan website v1.2.2
 //
 // PROJECTS is the hand-written part: words, screenshots, build steps.
 // Versions, dates, licences and download links come from assets/releases.js,
@@ -615,6 +615,21 @@ $('#project-search').addEventListener('input', (e) => { state.search = e.target.
 
   $('#year').textContent = new Date().getFullYear();
   if (window.RELEASES_BUILT) $('#built').textContent = ` · release info from ${fmtDate(window.RELEASES_BUILT)}`;
+})();
+
+// Visit counter: GoatCounter sets no cookies and stores nothing in the browser. Live site only
+(function visits() {
+  if (location.hostname !== 'subbaan.github.io') return;
+  const gc = 'https://subbaan.goatcounter.com';
+  const count = document.createElement('script');
+  count.async = true;
+  count.dataset.goatcounter = gc + '/count';
+  count.src = 'https://gc.zgo.at/count.js';
+  document.body.appendChild(count);
+  fetch(gc + '/counter/TOTAL.json')
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => { if (d && d.count) $('#visits').textContent = ` · ${d.count} visits`; })
+    .catch(() => {});
 })();
 
 // Featured: Bunzi gameplay loop

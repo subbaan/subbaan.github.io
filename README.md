@@ -1,9 +1,9 @@
 # Subbaan website
 
-Version: 1.2.1
+Version: 1.2.2
 
 The source for **https://subbaan.github.io**, a static portfolio of Subbaan's software, with an optional Ko-fi gift link.
-It has no framework, CDN, analytics, cookies or backend. The page is `index.html`; `build.sh` refreshes the generated assets.
+It has no framework, CDN, cookies or backend. On the live site only, a small footer counter uses [GoatCounter](https://www.goatcounter.com) (`subbaan.goatcounter.com`), which sets no cookies and stores nothing in the browser. The page is `index.html`; `build.sh` refreshes the generated assets.
 
 ## Layout
 
@@ -48,6 +48,7 @@ Project popups have shareable links, e.g. `https://subbaan.github.io/#/radiowave
 
 ## Changelog
 
+- **1.2.2**: Small cookie-free visit counter in the footer (GoatCounter, live site only).
 - **1.2.1**: Bunzi copy mentions its real RGBA rendering, parallax backgrounds and the dissolving-terminal intro.
 - **1.2.0**: Bunzi gameplay video: an 18 s silent loop in the Featured box and on the Bunzi card, and the full demo with sound in the Bunzi popup. Animations are replaced by still images when the visitor prefers reduced motion. `build.sh --videos` makes the clips.
 - **1.1.2**: The full-size profile picture is no longer kept in the site; `build.sh` reads it from `SUBBAAN_ICON` when you want to regenerate the logo.
