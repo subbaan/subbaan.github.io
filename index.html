@@ -1,0 +1,719 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1d2021">
+  <title>Subbaan · Software, games & little experiments</title>
+  <meta name="description" content="Free Linux software by Subbaan: terminal apps, little tools and games, with the source on GitHub. Optional gifts on Ko-fi.">
+  <link rel="canonical" href="https://subbaan.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Subbaan">
+  <meta property="og:title" content="Subbaan · Software, games & little experiments">
+  <meta property="og:description" content="Free Linux software: terminal apps, little tools and games, with the source on GitHub.">
+  <meta property="og:url" content="https://subbaan.github.io/">
+  <meta property="og:image" content="https://subbaan.github.io/assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="assets/brand/favicon.png">
+  <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+  <style>
+    /* Subbaan website v1.2.1 · Gruvbox Dark */
+    :root {
+      color-scheme: dark;
+      --bg: #1d2021; --panel: #282828; --panel2: #32302f; --raise: #3c3836;
+      --line: #504945; --line-soft: #3c3836; --line-strong: #665c54;
+      --text: #ebdbb2; --text2: #d5c4a1; --muted: #bdae93; --dim: #928374;
+      --gold: #fabd2f; --gold-hi: #ffd05c; --green: #b8bb26; --aqua: #8ec07c;
+      --blue: #83a598; --purple: #d3869b; --orange: #fe8019; --red: #fb4934;
+      --radius: 13px; --max: 1370px;
+      --mono: ui-monospace, 'JetBrains Mono', 'DejaVu Sans Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif; }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; color: inherit; }
+    button { cursor: pointer; }
+    img { display: block; max-width: 100%; }
+    :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+    ::selection { background: #665c54; color: #fff; }
+    [hidden] { display: none !important; }
+    .wrap { width: min(calc(100% - 44px), var(--max)); margin: auto; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 20; background: #1d2021ed; backdrop-filter: blur(18px); border-bottom: 1px solid var(--line-soft); }
+    .header-inner { min-height: 74px; display: flex; align-items: center; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 11px; white-space: nowrap; }
+    .brand-mark { width: 44px; height: 44px; border-radius: 50%; box-shadow: 0 0 0 1px var(--line); }
+    .brand strong { font-size: 21px; letter-spacing: -.7px; }
+    .brand strong span { color: var(--gold); }
+    .brand small { display: block; color: var(--muted); font-size: 11px; margin-top: -4px; }
+    .nav { display: flex; align-items: center; gap: 4px; margin-left: auto; }
+    .nav a { font-size: 13px; color: var(--muted); padding: 10px 13px; border-radius: 8px; }
+    .nav a:hover { background: var(--raise); color: var(--text); }
+    .header-links { display: flex; gap: 8px; }
+    .header-btn { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line-strong); padding: 8px 12px; border-radius: 9px; font-size: 13px; white-space: nowrap; }
+    .header-btn:hover { background: var(--raise); }
+    .header-btn.kofi { color: var(--gold); }
+    .header-btn svg { width: 16px; height: 16px; fill: currentColor; }
+    .menu-toggle { display: none; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: 7px 12px; }
+
+    /* Shared bits */
+    main { padding: 24px 0 30px; }
+    .eyebrow { color: var(--gold); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 750; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 38px; padding: 8px 15px; border-radius: 8px; font-weight: 700; font-size: 13px; border: 1px solid var(--line); background: var(--raise); color: var(--text); transition: background .15s, transform .15s; }
+    .button:hover { transform: translateY(-1px); background: var(--line); }
+    .button.primary { background: var(--gold); border-color: var(--gold); color: var(--bg); }
+    .button.primary:hover { background: var(--gold-hi); }
+    .button.ghost { background: transparent; }
+    .button small { font-weight: 500; opacity: .75; }
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { border: 1px solid var(--line); background: var(--raise); color: var(--text2); border-radius: 6px; padding: 3px 8px; font-size: 11px; }
+    .section { margin-top: 28px; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 12px; margin: 0 0 12px; flex-wrap: wrap; }
+    .section-head h2 { font-size: 18px; letter-spacing: -.4px; margin: 0; }
+    .section-head p { color: var(--dim); font-size: 12px; margin: 0; }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); }
+
+    /* Hero */
+    .hero { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(260px, .7fr); gap: 17px; }
+    .hero-main { position: relative; overflow: hidden; background: linear-gradient(104deg, #282828 0%, #292b28 52%, #23352f 100%); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 34px; }
+    .hero-main::before { content: ""; position: absolute; right: -90px; bottom: -200px; width: 500px; height: 500px; border: 1px solid #8ec07c38; border-radius: 50%; box-shadow: 0 0 0 64px #8ec07c09, 0 0 0 128px #8ec07c09; pointer-events: none; }
+    .hero h1 { font-size: clamp(33px, 3.8vw, 53px); line-height: 1.09; letter-spacing: -2.2px; margin: 9px 0 14px; max-width: 660px; }
+    .hero h1 span { color: var(--gold); }
+    .hero-main p { max-width: 640px; color: var(--text2); margin: 0 0 20px; position: relative; }
+    .hero-main .actions { position: relative; }
+    .stats { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 24px; padding-top: 18px; border-top: 1px solid #50494580; position: relative; }
+    .stats div { font-size: 12px; color: var(--muted); }
+    .stats strong { display: block; font: 700 22px/1.1 var(--mono); color: var(--text); }
+    .hero-aside { padding: 23px; display: flex; flex-direction: column; justify-content: center; }
+    .hero-aside .eyebrow { color: var(--aqua); }
+    .hero-aside h2 { margin: 5px 0 7px; font-size: 20px; }
+    .hero-aside p { font-size: 13px; color: var(--muted); margin: 0 0 15px; }
+
+    /* Layout */
+    .grid-main { display: grid; grid-template-columns: minmax(0, 1fr) 312px; gap: 17px; margin-top: 20px; }
+    .main-column, .side-column { min-width: 0; }
+
+    /* Featured */
+    .feature { overflow: hidden; display: grid; grid-template-columns: .9fr 1.1fr; }
+    .feature-copy { padding: 25px; display: flex; flex-direction: column; align-items: flex-start; }
+    .pill { font-size: 11px; color: var(--aqua); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .feature h3 { font-size: 34px; line-height: 1.1; letter-spacing: -1.5px; margin: 10px 0 8px; }
+    .feature p { color: var(--muted); margin: 0 0 16px; font-size: 14px; }
+    .feature .actions { margin-top: auto; padding-top: 18px; }
+    .feature-art { position: relative; aspect-ratio: 16 / 9; align-self: center; margin: 14px 14px 14px 0; border-radius: 9px; overflow: hidden; border: 1px solid var(--line-strong); background: #000; cursor: zoom-in; padding: 0; }
+    .feature-art video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .feature-caption { position: absolute; left: 10px; bottom: 10px; z-index: 1; background: #1d2021d0; color: var(--text2); font-size: 11px; padding: 3px 8px; border-radius: 6px; }
+
+    /* Project cards */
+    .filter-row { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin: 0 0 13px; }
+    .filter { background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 7px; padding: 5px 11px; font-size: 12px; }
+    .filter:hover, .filter[aria-pressed=true] { color: var(--bg); background: var(--gold); border-color: var(--gold); }
+    .search { margin-left: auto; min-width: 0; max-width: 220px; width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 7px; padding: 6px 10px; font-size: 12px; }
+    .project-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .project-card { position: relative; display: flex; flex-direction: column; overflow: hidden; background: var(--panel); border: 1px solid var(--line); border-radius: 11px; transition: transform .17s, border-color .17s; }
+    .project-card:hover { transform: translateY(-2px); border-color: var(--dim); }
+    .project-visual { aspect-ratio: 16 / 10; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #2b3834, #242829); border-bottom: 1px solid var(--line-soft); }
+    .project-visual img, .project-visual video { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+    .project-visual .symbol { font: 700 54px/1 var(--mono); color: var(--aqua); text-shadow: 0 3px 30px #0007; }
+    .project-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, #28282899); pointer-events: none; }
+    .project-card-body { padding: 14px 16px 13px; display: flex; flex-direction: column; flex: 1; }
+    .project-title { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+    .project-title h3 { font-size: 17px; margin: 0; }
+    .version { font: 11px/1 var(--mono); border: 1px solid var(--line-strong); border-radius: 6px; color: var(--muted); padding: 4px 6px; white-space: nowrap; }
+    .version.wip { color: var(--purple); border-color: #d3869b66; }
+    .project-card p { color: var(--muted); font-size: 12.5px; line-height: 1.5; margin: 7px 0 13px; }
+    .project-card .tags { margin-top: auto; }
+    .card-foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); margin-top: 13px; padding-top: 10px; font-size: 12px; font-weight: 750; }
+    .card-open { background: none; border: 0; padding: 0; color: var(--gold); font-weight: 750; }
+    .card-open::after { content: ""; position: absolute; inset: 0; } /* whole card opens details */
+    .card-gh { position: relative; z-index: 1; color: var(--dim); font-weight: 600; }
+    .card-gh:hover { color: var(--text); }
+    .no-results { border: 1px dashed var(--line); border-radius: 10px; padding: 25px; color: var(--muted); }
+    .lang { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+
+    /* Workshop */
+    .workshop-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .workshop-grid .project-visual { aspect-ratio: 16 / 7; }
+    .workshop-grid .project-card { border-style: dashed; }
+
+    /* Sidebar */
+    .side-box { padding: 19px; margin-bottom: 15px; }
+    .side-box h3 { margin: 0 0 9px; font-size: 16px; }
+    .side-box p { font-size: 13px; color: var(--muted); margin: 0 0 13px; }
+    .side-box .button { width: 100%; }
+    .side-box .note { font-size: 11.5px; color: var(--dim); margin: 11px 0 0; }
+    .release-list { list-style: none; margin: 0; padding: 0; }
+    .release-list li { border-top: 1px solid var(--line-soft); }
+    .release-list li:first-child { border-top: 0; }
+    .release-list a { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 9px 0; font-size: 13px; }
+    .release-list a:hover strong { color: var(--gold); }
+    .release-list span { font: 11.5px var(--mono); color: var(--aqua); align-self: center; }
+    .release-list time { grid-column: 1 / -1; color: var(--dim); font-size: 11.5px; }
+    .side-box .tags { margin-top: 4px; }
+
+    /* Support strip */
+    .support { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .6fr); gap: 24px; align-items: center; padding: 26px 28px; background: linear-gradient(110deg, #282828 0%, #2e2b24 100%); }
+    .support h2 { margin: 6px 0 8px; font-size: 24px; letter-spacing: -.6px; }
+    .support p { color: var(--text2); margin: 0 0 10px; max-width: 720px; }
+    .support p.small { color: var(--muted); font-size: 13px; }
+    .support-cta { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+    .support-cta .button { min-height: 46px; font-size: 15px; }
+    .support-cta span { color: var(--dim); font-size: 12px; text-align: center; }
+
+    /* Footer */
+    .site-footer { border-top: 1px solid var(--line-soft); color: var(--dim); padding: 23px 0 30px; font-size: 12px; margin-top: 10px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+    .footer-inner a { color: var(--muted); margin-left: 15px; }
+    .footer-inner a:first-child { margin-left: 0; }
+    .footer-inner a:hover { color: var(--gold); }
+
+    /* Project dialog */
+    dialog { max-width: min(900px, calc(100% - 24px)); width: 100%; max-height: 92vh; overflow: auto; border: 1px solid var(--line-strong); border-radius: 14px; background: var(--panel); color: var(--text); padding: 0; box-shadow: 0 25px 100px #000b; }
+    dialog::backdrop { background: #000b; backdrop-filter: blur(5px); }
+    .gallery { position: relative; background: #141617; border-bottom: 1px solid var(--line); }
+    .gallery-main { display: grid; place-items: center; min-height: 200px; }
+    .gallery-main img { max-height: 58vh; width: auto; max-width: 100%; object-fit: contain; }
+    .gallery-main img.pixel { image-rendering: pixelated; width: 100%; }
+    .gallery-main video { width: 100%; max-height: 58vh; background: #000; }
+    .gallery-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line-strong); background: #1d2021d9; font-size: 18px; }
+    .gallery-nav:hover { background: var(--raise); }
+    .gallery-nav.prev { left: 10px; } .gallery-nav.next { right: 10px; }
+    .gallery-caption { padding: 8px 14px 0; color: var(--muted); font-size: 12px; }
+    .gallery-thumbs { display: flex; gap: 8px; padding: 8px 14px 12px; overflow-x: auto; }
+    .gallery-thumbs button { flex: 0 0 auto; width: 92px; aspect-ratio: 16 / 10; padding: 0; border-radius: 6px; overflow: hidden; border: 2px solid transparent; background: #000; opacity: .65; }
+    .gallery-thumbs button[aria-current=true] { border-color: var(--gold); opacity: 1; }
+    .gallery-thumbs button { position: relative; }
+    .gallery-thumbs img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+    .gallery-thumbs .play { position: absolute; inset: 0; display: grid; place-items: center; color: #fff; font-size: 20px; text-shadow: 0 1px 6px #000; }
+    .dialog-inner { padding: 22px 25px 25px; }
+    .dialog-top { display: flex; justify-content: space-between; gap: 20px; align-items: start; }
+    .dialog-top h2 { margin: 2px 0 0; font-size: 28px; letter-spacing: -.8px; }
+    .close { background: var(--raise); border: 1px solid var(--line); border-radius: 7px; padding: 5px 12px; flex: 0 0 auto; }
+    .meta { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 10px 0 0; color: var(--dim); font-size: 12.5px; }
+    .meta b { color: var(--text2); font-weight: 600; }
+    .dialog-inner > p { color: var(--text2); }
+    .dialog-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 4px; }
+    .dialog-cols h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--aqua); margin: 0 0 6px; }
+    .detail-list { padding-left: 18px; color: var(--muted); margin: 0; font-size: 14px; }
+    .detail-list li { margin: 5px 0; }
+    .get-it { margin-top: 20px; padding: 16px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel2); }
+    .get-it h3 { margin: 0 0 10px; font-size: 15px; }
+    .code { position: relative; margin: 12px 0 0; }
+    .code pre { margin: 0; padding: 12px 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; font: 12.5px/1.6 var(--mono); color: var(--text2); overflow-x: auto; }
+    .code pre::before { content: "Build from source"; display: block; font: 600 10.5px system-ui; letter-spacing: 1.5px; text-transform: uppercase; color: var(--dim); margin-bottom: 4px; }
+    .copy { position: absolute; top: 8px; right: 8px; font-size: 11px; padding: 3px 9px; border-radius: 6px; border: 1px solid var(--line); background: var(--raise); }
+    .get-it .hint { color: var(--dim); font-size: 12px; margin: 10px 0 0; }
+
+    @media (max-width: 1100px) {
+      .grid-main { grid-template-columns: 1fr; }
+      .side-column { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+      .side-box { margin: 0; }
+    }
+    @media (max-width: 860px) {
+      .project-grid, .workshop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .feature { grid-template-columns: 1fr; }
+      .feature-art { order: -1; margin: 0; border-radius: 0; border: 0; border-bottom: 1px solid var(--line); }
+      .side-column { grid-template-columns: 1fr 1fr; }
+      .support { grid-template-columns: 1fr; }
+      .hero { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .wrap { width: calc(100% - 32px); }
+      .header-inner { min-height: 64px; flex-wrap: wrap; gap: 10px; }
+      .brand strong { font-size: 19px; }
+      .menu-toggle { display: block; margin-left: auto; }
+      .nav { order: 3; display: none; width: 100%; margin: 0; padding-bottom: 10px; flex-wrap: wrap; }
+      .nav.open { display: flex; }
+      .header-links { display: none; }
+      .hero-main { padding: 24px; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .search { max-width: none; margin: 7px 0 0; }
+      .dialog-cols { grid-template-columns: 1fr; }
+      .side-column { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 520px) {
+      .project-grid, .workshop-grid { grid-template-columns: 1fr; }
+      .brand small { display: none; }
+      .hero h1 { font-size: 34px; }
+      .stats { gap: 18px; }
+      .support { padding: 22px; }
+      .dialog-inner { padding: 18px; }
+      .gallery-nav { width: 32px; height: 32px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="#top" aria-label="Subbaan home">
+      <img class="brand-mark" src="assets/brand/logo.webp" alt="" width="44" height="44">
+      <span><strong>Subbaan<span>.</span></strong><small>Software, games & little experiments</small></span>
+    </a>
+    <button class="menu-toggle" id="menu-toggle" aria-controls="main-nav" aria-expanded="false">☰ Menu</button>
+    <nav class="nav" id="main-nav" aria-label="Main navigation">
+      <a href="#projects">Projects</a>
+      <a href="#workshop">Workshop</a>
+      <a href="#about">About</a>
+      <a href="#support">Support</a>
+    </nav>
+    <div class="header-links">
+      <a class="header-btn" href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+      </a>
+      <a class="header-btn kofi" href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">♥ Ko-fi</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="top">
+  <div class="hero">
+    <section class="hero-main" aria-labelledby="main-title">
+      <div class="eyebrow">Independent developer · Linux · Free software</div>
+      <h1 id="main-title">Software, games & <span>little experiments.</span></h1>
+      <p>Hi, I'm Subbaan. I build small, practical tools for problems where the existing options don't work the way I want. Most are terminal apps, because I like fast keyboard navigation, and every now and then one turns into a game.</p>
+      <div class="actions">
+        <a class="button primary" href="#projects">Browse projects ↓</a>
+        <a class="button ghost" href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">Everything on GitHub ↗</a>
+      </div>
+      <div class="stats" id="stats" aria-label="At a glance"></div>
+    </section>
+    <aside class="hero-aside panel" id="about">
+      <div class="eyebrow">A little about me</div>
+      <h2>One person, lots of ideas.</h2>
+      <p>I'm an independent developer and carer who enjoys making things and sharing them. Everything here is free to use: no paywalls, no locked features, no nagging. The source for each project is on GitHub.</p>
+      <div class="tags"><span class="tag">Linux</span><span class="tag">Terminal apps</span><span class="tag">Go</span><span class="tag">Rust</span><span class="tag">C / C++</span><span class="tag">Games</span></div>
+    </aside>
+  </div>
+
+  <div class="grid-main">
+    <div class="main-column">
+      <section aria-labelledby="featured-heading">
+        <div class="section-head"><h2 id="featured-heading">★ Featured</h2><span class="eyebrow">Yes, this runs in a terminal</span></div>
+        <div class="feature panel">
+          <div class="feature-copy">
+            <div class="pill">Game · Linux · kitty terminal</div>
+            <h3>Bunzi</h3>
+            <p>A full-colour pixel-art platformer that runs <em>inside the kitty terminal</em>, starring a white bunny in a red scarf. It isn't made of text characters: every frame is real 32-bit RGBA pixels at 60 fps, with layered parallax backgrounds. Four levels, a SID-style soundtrack and a speedrun twist: collect every coin, stomp enemies to shave time off the clock, and chase a perfect clear.</p>
+            <div class="tags"><span class="tag">Platformer</span><span class="tag">RGBA pixels</span><span class="tag">Parallax</span><span class="tag">Time trials</span><span class="tag">Gamepad</span></div>
+            <div class="actions" id="feature-actions">
+              <button class="button primary" data-detail="bunzi">See more ↗</button>
+              <a class="button ghost" href="https://github.com/subbaan/bunzi" target="_blank" rel="noopener noreferrer">Source</a>
+            </div>
+          </div>
+          <button class="feature-art" id="feature-art" data-detail="bunzi" aria-label="Open Bunzi screenshots"></button>
+        </div>
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="projects-heading">
+        <div class="section-head"><h2 id="projects-heading">◆ Projects</h2><p>Released, open source, and free to download.</p></div>
+        <div class="filter-row" role="group" aria-label="Filter projects">
+          <button class="filter" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" data-filter="game" aria-pressed="false">Games</button>
+          <button class="filter" data-filter="media" aria-pressed="false">Media & reading</button>
+          <button class="filter" data-filter="tool" aria-pressed="false">Tools</button>
+          <input class="search" id="project-search" type="search" placeholder="Search projects…" aria-label="Search projects">
+        </div>
+        <div class="project-grid" id="project-grid"></div>
+        <p class="no-results" id="no-results" hidden>No projects match that. Try another filter or search.</p>
+        <noscript><p class="no-results">The project list needs JavaScript. Everything is also on <a href="https://github.com/subbaan" style="color:var(--gold)">github.com/subbaan</a>.</p></noscript>
+      </section>
+
+      <section class="section" id="workshop" aria-labelledby="workshop-heading">
+        <div class="section-head"><h2 id="workshop-heading">⚒ In the workshop</h2><p>Bigger things I'm working on. Not public yet.</p></div>
+        <div class="workshop-grid" id="workshop-grid"></div>
+      </section>
+    </div>
+
+    <aside class="side-column">
+      <section class="side-box panel">
+        <h3>♥ Enjoying something?</h3>
+        <p>Everything here is free. If something I've made has been useful or fun, you can send a small gift on Ko-fi. It's entirely optional.</p>
+        <a class="button primary" href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">☕ Send a gift on Ko-fi ↗</a>
+        <p class="note"><a href="#support" style="color:var(--muted);text-decoration:underline">How gifts work</a></p>
+      </section>
+      <section class="side-box panel">
+        <h3>↗ Latest releases</h3>
+        <ul class="release-list" id="release-list"></ul>
+      </section>
+      <section class="side-box panel">
+        <h3>⌘ The idea behind it</h3>
+        <p>Make something useful. Make it enjoyable. Polish the little details. Then share it with anyone who might like it.</p>
+        <div class="tags"><span class="tag">No paywalls</span><span class="tag">No nags</span><span class="tag">No tracking</span><span class="tag">Just software</span></div>
+      </section>
+    </aside>
+  </div>
+
+  <section class="support panel" id="support" aria-labelledby="support-heading">
+    <div>
+      <div class="eyebrow">Support</div>
+      <h2 id="support-heading">A gift, not a payment.</h2>
+      <p>Everything on this site is free to download and use, and most of it is open source under the MIT licence. There's nothing to buy, and no paid version waiting behind a donation.</p>
+      <p>If something I've made has been useful or fun and you'd like to say thanks, you're welcome to send a gift on Ko-fi. It doesn't buy anything, unlock anything, or come with any obligations. And not sending anything is completely fine too.</p>
+      <p class="small">Bug reports, ideas and kind words are just as welcome: open an issue on any project's GitHub page.</p>
+    </div>
+    <div class="support-cta">
+      <a class="button primary" href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">☕ ko-fi.com/subbaan ↗</a>
+      <a class="button ghost" href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">Star or follow on GitHub ↗</a>
+      <span>Thank you for looking around.</span>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <span>© <span id="year">2026</span> Subbaan · Website v1.2.1<span id="built"></span></span>
+    <span><a href="#top">Top ↑</a><a href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">Ko-fi</a></span>
+  </div>
+</footer>
+
+<dialog id="project-dialog" aria-labelledby="dialog-title">
+  <div class="gallery" id="gallery">
+    <div class="gallery-main" id="gallery-main"></div>
+    <button class="gallery-nav prev" id="gallery-prev" aria-label="Previous screenshot">‹</button>
+    <button class="gallery-nav next" id="gallery-next" aria-label="Next screenshot">›</button>
+    <div class="gallery-caption" id="gallery-caption"></div>
+    <div class="gallery-thumbs" id="gallery-thumbs"></div>
+  </div>
+  <div class="dialog-inner">
+    <div class="dialog-top">
+      <div><div class="eyebrow" id="dialog-kind"></div><h2 id="dialog-title"></h2></div>
+      <button class="close" id="dialog-close" aria-label="Close project details" autofocus>✕</button>
+    </div>
+    <div class="meta" id="dialog-meta"></div>
+    <p id="dialog-description"></p>
+    <div class="dialog-cols">
+      <div><h3>Highlights</h3><ul class="detail-list" id="dialog-points"></ul></div>
+      <div><h3>Needs</h3><ul class="detail-list" id="dialog-needs"></ul></div>
+    </div>
+    <div class="get-it" id="dialog-get"></div>
+  </div>
+</dialog>
+
+<script src="assets/releases.js"></script>
+<script>
+// Subbaan website v1.2.1
+//
+// PROJECTS is the hand-written part: words, screenshots, build steps.
+// Versions, dates, licences and download links come from assets/releases.js,
+// which ./build.sh regenerates from GitHub. Screenshots live in assets/img/<id>/.
+//
+// type:   game | media | tool
+// images: [file name in assets/img/<id>/ (no extension), caption, options]
+//         options.full = no "-thumb" variant; options.pixel = crisp pixel scaling;
+//         options.video = an assets/video/<name>.mp4 with a <name>.jpg poster
+// cardVideo: optional silent loop (assets/video/<name>.mp4) shown on the card
+const GH = 'https://github.com/subbaan/';
+const PROJECTS = [
+  {
+    id: 'bunzi', title: 'Bunzi', type: 'game', symbol: '★',
+    tagline: 'A full-colour pixel-art platformer that runs inside the kitty terminal.',
+    description: 'Starring a white bunny in a red scarf. Four levels (Moonlit Ruins, Sunset Lake, Tropical Island and Crystal Caverns), a SID-style soundtrack, and a speedrun twist: collect every coin, stomp enemies to knock half a second off the clock, and get your initials onto each level\'s Top 10.',
+    tags: ['C', 'kitty', 'Parallax', 'RGBA'],
+    points: ['Real 32-bit RGBA frames in the terminal through the kitty graphics protocol, not text characters', 'Layered parallax backgrounds, each scrolling at its own depth', 'An intro where your actual terminal text dissolves into sparks as the game rises through a transparent overlay, and reassembles when you quit', 'Spiky fish that leap out of pools and jellyfish that squirt water at you', 'Hundredths-of-a-second timer, stomp bonuses and per-level high scores', 'Keyboard or gamepad'],
+    needs: ['Linux, x86-64', 'The kitty terminal (Ghostty should also work)', 'SDL3, libpng and zlib'],
+    build: 'git clone https://github.com/subbaan/bunzi\ncd bunzi\nmake\n./bunzi',
+    cardVideo: 'bunzi-loop',
+    images: [['bunzi-demo', 'Full demo with sound: from the terminal, through all four levels, and back', {video: true}], ['title', 'Title screen', {pixel: true}], ['sunset-lake', 'Level 2: Sunset Lake', {pixel: true}], ['moonlit-ruins', 'Level 1: Moonlit Ruins, the burrow door', {pixel: true}], ['tropical-island', 'Level 3: Tropical Island, a jellyfish squirts', {pixel: true}], ['crystal-caverns', 'Level 4: Crystal Caverns, a spiky fish leaps', {pixel: true}], ['results', 'A perfect clear on the results screen', {pixel: true}]],
+    focus: 'center'
+  },
+  {
+    id: 'radiowave', title: 'Radiowave', type: 'media', symbol: '♫',
+    tagline: 'A terminal internet radio player and station discovery tool.',
+    description: 'Feels closer to a dedicated radio than a music player. The Player page is for listening; the Manager page is for discovering stations (trending, popular, random, search and genre tags, live from Radio Browser). Switching pages never interrupts playback, so you can audition stations for as long as you like.',
+    tags: ['Go', 'Radio', 'Visualizer'],
+    points: ['13 visualizer styles, driven by real audio analysis when cava is installed', 'In kitty, pixel visualizers draw true RGBA graphics at 60 fps onto a translucent terminal', 'Favourites, history and hidden stations', 'Scales from a 24×4 mini player up to a full-window visualizer'],
+    needs: ['Linux and a true-colour terminal (kitty is ideal)', 'mpv for playback', 'cava (optional) for a real audio spectrum'],
+    build: 'git clone https://github.com/subbaan/radiowave\ncd radiowave\nmake build\n./radiowave',
+    focus: 'center',
+    images: [['rgba-visualizer', 'Yes, that\'s a terminal: the Neon pixel visualizer in a translucent kitty window', {full: true}], ['player-normal', 'Player, normal layout'], ['manager-trending', 'Manager, live trending stations from Radio Browser'], ['manager-favorites', 'Manager, favourites'], ['genre-picker', 'Genre picker, live-filtering the tag catalogue'], ['settings', 'Settings, themes and visualizer']]
+  },
+  {
+    id: 'litreader', title: 'litreader', type: 'media', symbol: '¶',
+    tagline: 'A terminal ebook reader and library manager for text story collections.',
+    description: 'Point it at a folder of .txt stories organised by author, and it becomes a proper library: reading progress, ratings, favourites, bookmarks and fast full-text search, all from the keyboard.',
+    tags: ['Go', 'Reader', 'Library'],
+    points: ['Remembers where you left off in every story', 'Full-text search across the whole library', 'Browse authors and see stats about their work', 'Copy and rename the program for fully separate collections'],
+    needs: ['Linux and a terminal', 'ripgrep for search (optional)', 'pandoc for Markdown rendering (optional)'],
+    build: 'git clone https://github.com/subbaan/litreader\ncd litreader\ngo build -o litreader ./cmd/litreader\n./litreader',
+    images: [['mainmenu', 'Dashboard with library statistics'], ['story', 'Reading a story'], ['explore-view', 'Exploring authors'], ['config', 'Built-in configuration editor']]
+  },
+  {
+    id: 'blitz-cipher', title: 'Blitz Cipher', type: 'game', symbol: '✈',
+    tagline: 'A retro side-scrolling shoot-\'em-up for the terminal.',
+    description: 'The year is 2187, and Earth\'s deep-space relay network has gone dark. Fly the last Blitz-class interceptor through six sectors (open sky, mountain passes, caverns, fuel depots and the enemy base itself) while keeping an eye on your fuel.',
+    tags: ['Rust', 'Shoot-\'em-up', 'Retro'],
+    points: ['Six stages of rising difficulty', 'Eight enemy types, each with its own attack pattern', 'Grab fuel pickups to keep flying', 'Keyboard or gamepad'],
+    needs: ['Linux and a terminal', 'Rust, if building from source'],
+    build: 'git clone https://github.com/subbaan/blitz_cipher\ncd blitz_cipher\ncargo run --release',
+    images: [['titlepage', 'Title screen'], ['levelpreview1', 'Stage 1: open sky over the relay grounds'], ['levelpreview2', 'Stage 4: deep in the narrow caves']]
+  },
+  {
+    id: 'ytseries', title: 'ytseries', type: 'media', symbol: '▶',
+    tagline: 'Watch YouTube channels in order, with watch tracking.',
+    description: 'A fast terminal app for working through channels from the first episode onwards, or just catching up on new uploads. It starts instantly because nothing is looked up online until you press play; a background sync keeps everything fresh.',
+    tags: ['Go', 'YouTube', 'mpv'],
+    points: ['Play the next unwatched episode, or the latest upload, with one key', 'Episodes are marked watched at 90% through mpv', 'Channels with new episodes are highlighted', 'Cron-friendly background sync'],
+    needs: ['Linux and a terminal', 'yt-dlp and mpv', 'Node.js (used by yt-dlp)'],
+    build: 'git clone https://github.com/subbaan/ytseries\ncd ytseries\nmake build',
+    images: [['mainmenu', 'Channels sorted by recent activity'], ['browsemenu', 'Browsing and marking episodes'], ['configmenu', 'Settings']]
+  },
+  {
+    id: 'nordtui', title: 'nordtui', type: 'tool', symbol: '⇄',
+    tagline: 'Switch NordVPN locations quickly from the keyboard.',
+    description: 'The NordVPN app keeps a tiny recent list and makes browsing locations slow. nordtui gives you two panes: saved and recent locations on the left for one-key reconnects, and a searchable list of every location on the right.',
+    tags: ['Go', 'VPN', 'TUI'],
+    points: ['Favourites and recents, one keypress away at startup', 'Instant filter across every country and city', 'Specialty servers: Double VPN, Onion over VPN, P2P, Dedicated IP', 'Your current connection is always shown'],
+    needs: ['Linux', 'The nordvpn command-line client, logged in'],
+    build: 'git clone https://github.com/subbaan/nordtui\ncd nordtui\nmake build\n./nordtui-bin',
+    images: [['nordtui01', 'Saved locations and the full list'], ['nordtui02', 'Filtering locations']]
+  },
+  {
+    id: 'notes', title: 'Notes', type: 'tool', symbol: '✎',
+    tagline: 'Fast, simple terminal note-taking. Just plain files in folders.',
+    description: 'No database, no sync service, no lock-in: your notes are Markdown files in ordinary folders that work fine without the app. It opens instantly, and everything is reachable from the keyboard.',
+    tags: ['Go', 'Notes', 'Markdown'],
+    points: ['Search across all notes, or within one', 'Inline #tags and a tag browser', 'Built-in editor with undo and redo, or use your own editor', 'Favourites, a trash with restore, and custom colours'],
+    needs: ['Linux and a terminal', 'Go, to build it'],
+    build: 'git clone https://github.com/subbaan/notes\ncd notes\ngo build -o notes\n./notes',
+    images: [['mainmenu', 'Folders and notes'], ['notecontent', 'Editing a note'], ['notesconfig', 'Configuration']]
+  },
+  {
+    id: 'waste-tui', title: 'WASTE TUI', type: 'tool', symbol: '⚿',
+    tagline: 'A modern Linux client for WASTE, Nullsoft\'s encrypted P2P network from 2003.',
+    description: 'WASTE was a private, encrypted mesh network made at Nullsoft by Justin Frankel of Winamp fame. It was pulled days after release, but the source lived on under the GPL. This revives it as a terminal client for modern Linux while staying compatible with the original protocol.',
+    tags: ['C++', 'P2P', 'Encryption'],
+    points: ['Encrypted connections only to people you trust', 'Chat rooms and direct messages', 'File search, sharing and transfers', '12 colour themes with live preview'],
+    needs: ['Linux and a terminal', 'CMake and a C++17 compiler', 'Alpha quality: expect rough edges'],
+    build: 'git clone https://github.com/subbaan/waste-tui\ncd waste-tui/tui\nmkdir -p build && cd build\ncmake .. && make -j"$(nproc)"\n./waste-tui',
+    images: [['network', 'Network view'], ['chat', 'Chat'], ['keymanager', 'Key manager'], ['settings', 'Settings']]
+  },
+  {
+    id: '1cheri', title: '1cheri', type: 'media', symbol: '❀',
+    tagline: 'A keyboard-driven desktop viewer for 4chan image and video threads.',
+    description: 'Browse boards, open threads and flick through their images and videos in a fast native window instead of a browser tab. Read-only by design: it never posts. An unofficial client, not affiliated with 4chan.',
+    tags: ['Rust', 'GTK4', 'libmpv'],
+    points: ['Sort threads by most videos, images, replies or recent activity', 'Hide or pin threads by word or phrase, per board or everywhere', 'Native video playback with hardware decoding', 'Save one file, or everything in a thread'],
+    needs: ['Linux', 'GTK4 and mpv (libmpv)'],
+    build: 'git clone https://github.com/subbaan/1cheri\ncd 1cheri\ncargo build --release\n./target/release/1cheri',
+    images: []
+  }
+];
+
+// Not public yet: shown without links.
+const WORKSHOP = [
+  {
+    id: 'latticefm', title: 'LatticeFM', symbol: '▦',
+    tagline: 'A power-user file manager for Linux desktops: multiple listers, source and destination panes, virtual collections, saved workspaces and deeply customisable toolbars.',
+    tags: ['C++', 'Qt 6', 'KDE Frameworks']
+  },
+  {
+    id: 'plica', title: 'Plica', symbol: '¶',
+    tagline: 'A mouse-friendly terminal text editor that works like Mousepad or Gedit, with tables you can edit cell by cell and colours that follow your desktop theme.',
+    tags: ['Rust', 'Editor', 'TUI']
+  },
+  {
+    id: 'gruvbox', title: 'Gruvbox', symbol: '◉',
+    tagline: 'A desktop groovebox: step sequencer, piano roll, synths, drums and a sampler, with randomise-then-edit tools for happy accidents.',
+    tags: ['Music', 'Sequencer', 'Synths'],
+    image: 'desktop-phrase-main'
+  }
+];
+
+const TYPE_NAMES = {game: 'Game', media: 'Media & reading', tool: 'Tool'};
+const LANG_COLOURS = {Go: '#83a598', Rust: '#fe8019', C: '#bdae93', 'C++': '#d3869b'};
+const RELEASES = window.RELEASES || {};
+
+const $ = (s) => document.querySelector(s);
+const esc = (v) => String(v).replace(/[&<>"']/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
+const img = (id, name, thumb) => `assets/img/${id}/${name}${thumb ? '-thumb' : ''}.webp`;
+const vid = (name, ext = 'mp4') => `assets/video/${name}.${ext}`;
+const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const loopVideo = (name, label = '') => calm
+  ? `<img src="${vid(name, 'jpg')}" alt="${esc(label)}" loading="lazy">`
+  : `<video src="${vid(name)}" poster="${vid(name, 'jpg')}" autoplay muted loop playsinline preload="metadata" aria-label="${esc(label)}"></video>`;
+const fmtDate = (iso) => iso ? new Date(iso + 'T00:00:00Z').toLocaleDateString('en-GB', {day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC'}) : '';
+const fmtSize = (b) => b > 1e6 ? `${(b / 1e6).toFixed(1)} MB` : `${Math.round(b / 1e3)} KB`;
+const ext = (url, label, cls = 'button') => `<a class="${cls}" href="${esc(url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+
+function thumbFor(item) {
+  if (item.cardVideo) return loopVideo(item.cardVideo);
+  const first = item.images[0];
+  if (!first) return `<span class="symbol" aria-hidden="true">${esc(item.symbol)}</span>`;
+  const [name, , opt = {}] = first;
+  return `<img src="${img(item.id, name, !opt.full)}" alt="" loading="lazy" style="object-position:${item.focus || 'top left'}">`;
+}
+
+function card(item) {
+  const rel = RELEASES[item.id] || {};
+  const lang = item.tags[0];
+  return `<article class="project-card" data-type="${item.type}">
+    <div class="project-visual">${thumbFor(item)}</div>
+    <div class="project-card-body">
+      <div class="project-title"><h3>${esc(item.title)}</h3>${rel.version ? `<span class="version">${esc(rel.version)}</span>` : ''}</div>
+      <p>${esc(item.tagline)}</p>
+      <div class="tags">${item.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+      <div class="card-foot">
+        <button class="card-open" data-detail="${item.id}">Details & download</button>
+        <a class="card-gh" href="${GH}${esc((rel.repo || '').split('/').pop() || item.id)}" target="_blank" rel="noopener noreferrer"><span class="lang" style="background:${LANG_COLOURS[lang] || '#928374'}"></span>${esc(lang)} ↗</a>
+      </div>
+    </div>
+  </article>`;
+}
+
+function workshopCard(item) {
+  const visual = item.image
+    ? `<img src="${img(item.id, item.image, true)}" alt="${esc(item.title)} screenshot" loading="lazy">`
+    : `<span class="symbol" aria-hidden="true">${esc(item.symbol)}</span>`;
+  return `<article class="project-card">
+    <div class="project-visual">${visual}</div>
+    <div class="project-card-body">
+      <div class="project-title"><h3>${esc(item.title)}</h3><span class="version wip">in progress</span></div>
+      <p>${esc(item.tagline)}</p>
+      <div class="tags">${item.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+    </div>
+  </article>`;
+}
+
+// Project list, filters and search
+const state = {filter: 'all', search: ''};
+function render() {
+  const items = PROJECTS.filter((p) =>
+    (state.filter === 'all' || p.type === state.filter) &&
+    [p.title, p.tagline, p.description, ...p.tags].join(' ').toLowerCase().includes(state.search));
+  $('#project-grid').innerHTML = items.map(card).join('');
+  $('#no-results').hidden = items.length !== 0;
+}
+document.querySelectorAll('[data-filter]').forEach((b) => b.addEventListener('click', () => {
+  state.filter = b.dataset.filter;
+  document.querySelectorAll('[data-filter]').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  render();
+}));
+$('#project-search').addEventListener('input', (e) => { state.search = e.target.value.trim().toLowerCase(); render(); });
+
+// Stats, latest releases, footer
+(function summary() {
+  const released = PROJECTS.filter((p) => RELEASES[p.id] && RELEASES[p.id].version);
+  const langs = new Set(PROJECTS.map((p) => p.tags[0]));
+  const stats = [[PROJECTS.length, 'public projects'], [released.length, 'with downloads'], [langs.size, 'languages'], ['£0', 'to use']];
+  $('#stats').innerHTML = stats.map(([n, l]) => `<div><strong>${esc(n)}</strong>${esc(l)}</div>`).join('');
+
+  const latest = released.slice().sort((a, b) => (RELEASES[b.id].released || '').localeCompare(RELEASES[a.id].released || '')).slice(0, 5);
+  $('#release-list').innerHTML = latest.length
+    ? latest.map((p) => { const r = RELEASES[p.id]; return `<li><a href="${esc(r.releaseUrl)}" target="_blank" rel="noopener noreferrer"><strong>${esc(p.title)}</strong><span>${esc(r.version)}</span><time datetime="${esc(r.released)}">${fmtDate(r.released)}</time></a></li>`; }).join('')
+    : `<li style="color:var(--muted);font-size:13px">See <a href="https://github.com/subbaan" style="color:var(--gold)">GitHub</a> for releases.</li>`;
+
+  $('#year').textContent = new Date().getFullYear();
+  if (window.RELEASES_BUILT) $('#built').textContent = ` · release info from ${fmtDate(window.RELEASES_BUILT)}`;
+})();
+
+// Featured: Bunzi gameplay loop
+(function featured() {
+  $('#feature-art').innerHTML = loopVideo('bunzi-loop', 'Bunzi gameplay from all four levels') +
+    '<span class="feature-caption">Gameplay from all four levels · click for the full demo with sound</span>';
+  const rel = RELEASES.bunzi;
+  if (rel && rel.download) $('#feature-actions').insertAdjacentHTML('afterbegin', ext(rel.download.url, `↓ Download <small>${esc(rel.version)}</small>`, 'button primary'));
+  $('#feature-actions .button[data-detail]').classList.remove('primary');
+})();
+
+// Project details dialog
+const dialog = $('#project-dialog');
+let current = null, shot = 0;
+
+function showShot(n) {
+  const shots = current.images;
+  if (!shots.length) return;
+  shot = (n + shots.length) % shots.length;
+  const [name, cap, opt = {}] = shots[shot];
+  $('#gallery-main').innerHTML = opt.video
+    ? `<video src="${vid(name)}" poster="${vid(name, 'jpg')}" controls playsinline preload="none" aria-label="${esc(cap)}"></video>`
+    : `<img src="${img(current.id, name, false)}" alt="${esc(cap)}" class="${opt.pixel ? 'pixel' : ''}">`;
+  $('#gallery-caption').textContent = `${shot + 1} / ${shots.length} · ${cap}`;
+  $('#gallery-thumbs').querySelectorAll('button').forEach((b, k) => b.setAttribute('aria-current', String(k === shot)));
+}
+
+function showProject(id) {
+  const item = PROJECTS.find((p) => p.id === id);
+  if (!item) return;
+  current = item;
+  const rel = RELEASES[id] || {};
+  const repo = rel.repo || GH + id;
+
+  $('#gallery').hidden = !item.images.length;
+  const multi = item.images.length > 1;
+  $('#gallery-prev').hidden = $('#gallery-next').hidden = $('#gallery-thumbs').hidden = !multi;
+  $('#gallery-thumbs').innerHTML = item.images.map(([n, cap, opt = {}], k) =>
+    `<button data-shot="${k}" aria-label="${opt.video ? 'Video' : 'Screenshot'} ${k + 1}: ${esc(cap)}"><img src="${opt.video ? vid(n, 'jpg') : img(id, n, !opt.full)}" alt="" loading="lazy">${opt.video ? '<span class="play" aria-hidden="true">▶</span>' : ''}</button>`).join('');
+  showShot(0);
+
+  $('#dialog-kind').textContent = TYPE_NAMES[item.type];
+  $('#dialog-title').textContent = item.title;
+  const meta = [];
+  if (rel.version) meta.push(`<span>Latest <b>${esc(rel.version)}</b>${rel.released ? `, ${fmtDate(rel.released)}` : ''}</span>`);
+  meta.push(`<span>Written in <b>${esc(item.tags[0])}</b></span>`);
+  meta.push(`<span>Licence <b>${esc(rel.license || 'not stated yet')}</b></span>`);
+  meta.push(`<span>Platform <b>Linux</b></span>`);
+  $('#dialog-meta').innerHTML = meta.join('');
+  $('#dialog-description').textContent = `${item.tagline} ${item.description}`;
+  $('#dialog-points').innerHTML = item.points.map((p) => `<li>${esc(p)}</li>`).join('');
+  $('#dialog-needs').innerHTML = item.needs.map((p) => `<li>${esc(p)}</li>`).join('');
+
+  const buttons = [];
+  if (rel.download) buttons.push(ext(rel.download.url, `↓ Download ${esc(rel.version)} <small>${esc(rel.download.name)} · ${fmtSize(rel.download.size)}</small>`, 'button primary'));
+  if (rel.releaseUrl) buttons.push(ext(rel.releaseUrl, 'Release notes ↗'));
+  buttons.push(ext(repo, 'Source on GitHub ↗', rel.download ? 'button ghost' : 'button primary'));
+  $('#dialog-get').innerHTML = `<h3>Get it</h3><div class="actions">${buttons.join('')}</div>
+    <div class="code"><pre><code>${esc(item.build)}</code></pre><button class="copy" data-copy>Copy</button></div>
+    ${rel.download && !/\.tar|\.zip/.test(rel.download.name) ? `<p class="hint">The download is a single Linux x86-64 program: <code>chmod +x</code> it and run it from a terminal.</p>` : ''}`;
+
+  if (!dialog.open) dialog.showModal();
+  dialog.scrollTop = 0;
+  history.replaceState(null, '', `#/${id}`);
+}
+
+function closeDialog() { dialog.close(); }
+dialog.addEventListener('close', () => {
+  const playing = $('#gallery-main video'); if (playing) playing.pause(); if (location.hash.startsWith('#/')) history.replaceState(null, '', location.pathname + location.search); });
+dialog.addEventListener('click', (e) => { if (e.target === dialog) closeDialog(); });
+dialog.addEventListener('keydown', (e) => {
+  if (!current || current.images.length < 2 || e.target.matches('input, video')) return;
+  if (e.key === 'ArrowRight') { showShot(shot + 1); e.preventDefault(); }
+  if (e.key === 'ArrowLeft') { showShot(shot - 1); e.preventDefault(); }
+});
+$('#dialog-close').addEventListener('click', closeDialog);
+$('#gallery-prev').addEventListener('click', () => showShot(shot - 1));
+$('#gallery-next').addEventListener('click', () => showShot(shot + 1));
+$('#gallery-thumbs').addEventListener('click', (e) => { const b = e.target.closest('[data-shot]'); if (b) showShot(+b.dataset.shot); });
+$('#dialog-get').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-copy]');
+  if (!b) return;
+  const done = () => { b.textContent = 'Copied'; setTimeout(() => (b.textContent = 'Copy'), 1500); };
+  navigator.clipboard ? navigator.clipboard.writeText(current.build).then(done, () => {}) : null;
+});
+document.addEventListener('click', (e) => { const d = e.target.closest('[data-detail]'); if (d) showProject(d.dataset.detail); });
+
+// Mobile menu
+$('#menu-toggle').addEventListener('click', () => {
+  const open = $('#main-nav').classList.toggle('open');
+  $('#menu-toggle').setAttribute('aria-expanded', String(open));
+});
+$('#main-nav').addEventListener('click', (e) => {
+  if (e.target.closest('a')) { $('#main-nav').classList.remove('open'); $('#menu-toggle').setAttribute('aria-expanded', 'false'); }
+});
+
+render();
+$('#workshop-grid').innerHTML = WORKSHOP.map(workshopCard).join('');
+if (location.hash.startsWith('#/')) showProject(location.hash.slice(2));
+</script>
+</body>
+</html>
