@@ -19,7 +19,7 @@
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
   <style>
-    /* Subbaan website v1.2.2 · Gruvbox Dark */
+    /* Subbaan website v1.2.3 · Gruvbox Dark */
     :root {
       color-scheme: dark;
       --bg: #1d2021; --panel: #282828; --panel2: #32302f; --raise: #3c3836;
@@ -158,13 +158,10 @@
     .side-box .tags { margin-top: 4px; }
 
     /* Support strip */
-    .support { margin-top: 28px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .6fr); gap: 24px; align-items: center; padding: 26px 28px; background: linear-gradient(110deg, #282828 0%, #2e2b24 100%); }
-    .support h2 { margin: 6px 0 8px; font-size: 24px; letter-spacing: -.6px; }
-    .support p { color: var(--text2); margin: 0 0 10px; max-width: 720px; }
-    .support p.small { color: var(--muted); font-size: 13px; }
-    .support-cta { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
-    .support-cta .button { min-height: 46px; font-size: 15px; }
-    .support-cta span { color: var(--dim); font-size: 12px; text-align: center; }
+    .support { margin-top: 28px; display: flex; gap: 14px 24px; align-items: center; justify-content: space-between; padding: 16px 20px; }
+    .support h2 { margin: 0 0 4px; font-size: 15px; letter-spacing: -.2px; }
+    .support p { color: var(--muted); font-size: 13px; margin: 0; max-width: 820px; }
+    .support .button { flex: none; }
 
     /* Footer */
     .site-footer { border-top: 1px solid var(--line-soft); color: var(--dim); padding: 23px 0 30px; font-size: 12px; margin-top: 10px; }
@@ -220,7 +217,7 @@
       .feature { grid-template-columns: 1fr; }
       .feature-art { order: -1; margin: 0; border-radius: 0; border: 0; border-bottom: 1px solid var(--line); }
       .side-column { grid-template-columns: 1fr 1fr; }
-      .support { grid-template-columns: 1fr; }
+      .support { flex-direction: column; align-items: flex-start; }
       .hero { grid-template-columns: 1fr; }
     }
     @media (max-width: 760px) {
@@ -242,7 +239,6 @@
       .brand small { display: none; }
       .hero h1 { font-size: 34px; }
       .stats { gap: 18px; }
-      .support { padding: 22px; }
       .dialog-inner { padding: 18px; }
       .gallery-nav { width: 32px; height: 32px; }
     }
@@ -356,23 +352,16 @@
 
   <section class="support panel" id="support" aria-labelledby="support-heading">
     <div>
-      <div class="eyebrow">Support</div>
-      <h2 id="support-heading">A gift, not a payment.</h2>
-      <p>Everything on this site is free to download and use, and most of it is open source under the MIT licence. There's nothing to buy, and no paid version waiting behind a donation.</p>
-      <p>If something I've made has been useful or fun and you'd like to say thanks, you're welcome to send a gift on Ko-fi. It doesn't buy anything, unlock anything, or come with any obligations. And not sending anything is completely fine too.</p>
-      <p class="small">Bug reports, ideas and kind words are just as welcome: open an issue on any project's GitHub page.</p>
+      <h2 id="support-heading">♥ A gift, not a payment</h2>
+      <p>Everything here is free, and most of it is MIT-licensed open source. If something has been useful or fun, you're welcome to send a gift on Ko-fi. It doesn't buy or unlock anything, and not sending one is completely fine. Bug reports and ideas on GitHub are just as welcome.</p>
     </div>
-    <div class="support-cta">
-      <a class="button primary" href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">☕ ko-fi.com/subbaan ↗</a>
-      <a class="button ghost" href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">Star or follow on GitHub ↗</a>
-      <span>Thank you for looking around.</span>
-    </div>
+    <a class="button ghost" href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">☕ Ko-fi ↗</a>
   </section>
 </main>
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>© <span id="year">2026</span> Subbaan · Website v1.2.2<span id="built"></span><span id="visits"></span></span>
+    <span>© <span id="year">2026</span> Subbaan · Website v1.2.3<span id="built"></span><span id="visits"></span></span>
     <span><a href="#top">Top ↑</a><a href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">Ko-fi</a></span>
   </div>
 </footer>
@@ -402,7 +391,7 @@
 
 <script src="assets/releases.js"></script>
 <script>
-// Subbaan website v1.2.2
+// Subbaan website v1.2.3
 //
 // PROJECTS is the hand-written part: words, screenshots, build steps.
 // Versions, dates, licences and download links come from assets/releases.js,
