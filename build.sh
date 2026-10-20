@@ -14,7 +14,7 @@
 
 set -euo pipefail
 
-VERSION="1.2.1"
+VERSION="1.2.2"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECTS="${SUBBAAN_PROJECTS:-$(dirname "$ROOT")}"
 GH_USER="subbaan"
@@ -174,7 +174,7 @@ build_images() {
       \( -size 1200x150 xc:'#1d2021e6' \) -gravity south -composite \
       -font DejaVu-Sans-Bold -pointsize 54 -fill '#ebdbb2' -gravity southwest -annotate +48+62 'Subbaan.' \
       -font DejaVu-Sans -pointsize 26 -fill '#fabd2f' -gravity southwest -annotate +48+28 'Free Linux software, terminal tools and games' \
-      "$ROOT/assets/og.png"
+      -define png:exclude-chunks=date,time "$ROOT/assets/og.png"
     echo "  og  assets/og.png"
   fi
 }

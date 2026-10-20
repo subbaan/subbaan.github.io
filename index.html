@@ -19,7 +19,7 @@
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
   <style>
-    /* Subbaan website v1.2.5 · Gruvbox Dark */
+    /* Subbaan website v1.2.6 · Gruvbox Dark */
     :root {
       color-scheme: dark;
       --bg: #1d2021; --panel: #282828; --panel2: #32302f; --raise: #3c3836;
@@ -346,7 +346,7 @@
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>© <span id="year">2026</span> Subbaan · Website v1.2.5<span id="built"></span><span id="visits"></span></span>
+    <span>© <span id="year">2026</span> Subbaan · Website v1.2.6<span id="built"></span><span id="visits"></span></span>
     <span><a href="#top">Top ↑</a><a href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">Ko-fi</a></span>
   </div>
 </footer>
@@ -376,7 +376,7 @@
 
 <script src="assets/releases.js"></script>
 <script>
-// Subbaan website v1.2.5
+// Subbaan website v1.2.6
 //
 // PROJECTS is the hand-written part: words, screenshots, build steps.
 // Versions, dates, licences and download links come from assets/releases.js,
@@ -417,7 +417,7 @@ const PROJECTS = [
     tagline: 'A terminal internet radio player and station discovery tool.',
     description: 'Feels closer to a dedicated radio than a music player. The Player page is for listening; the Manager page is for discovering stations (trending, popular, random, search and genre tags, live from Radio Browser). Switching pages never interrupts playback, so you can audition stations for as long as you like.',
     tags: ['Go', 'Radio', 'Visualizer'],
-    points: ['13 visualizer styles, driven by real audio analysis when cava is installed', 'In kitty, pixel visualizers draw true RGBA graphics at 60 fps onto a translucent terminal', 'Favourites, history and hidden stations', 'Scales from a 24×4 mini player up to a full-window visualizer'],
+    points: ['21 visualizer styles, driven by real audio analysis when cava is installed', 'In kitty, 11 pixel visualizers (Neon, Fire, Warp, Copper bars, Lava and more) draw true RGBA graphics at 60 fps onto a translucent terminal', 'Favourites, history and hidden stations', 'Scales from a 24×4 mini player up to a full-window visualizer'],
     needs: ['Linux and a true-colour terminal (kitty is ideal)', 'mpv for playback', 'cava (optional) for a real audio spectrum'],
     build: 'git clone https://github.com/subbaan/radiowave\ncd radiowave\nmake build\n./radiowave',
     focus: 'center',
@@ -458,7 +458,7 @@ const PROJECTS = [
     tagline: 'Switch NordVPN locations quickly from the keyboard.',
     description: 'The NordVPN app keeps a tiny recent list and makes browsing locations slow. nordtui gives you two panes: saved and recent locations on the left for one-key reconnects, and a searchable list of every location on the right.',
     tags: ['Go', 'VPN', 'TUI'],
-    points: ['Favourites and recents, one keypress away at startup', 'Instant filter across every country and city', 'Specialty servers: Double VPN, Onion over VPN, P2P, Dedicated IP', 'Your current connection is always shown'],
+    points: ['Favourites and recents, one keypress away at startup', 'Instant filter across every country and city', 'Specialty servers such as Double VPN, Onion over VPN and Dedicated IP, listed from NordVPN itself, so new groups appear on their own', 'Your current connection is always shown'],
     needs: ['Linux', 'The nordvpn command-line client, logged in'],
     build: 'git clone https://github.com/subbaan/nordtui\ncd nordtui\nmake build\n./nordtui-bin',
     images: [['nordtui01', 'Saved locations and the full list'], ['nordtui02', 'Filtering locations']]
