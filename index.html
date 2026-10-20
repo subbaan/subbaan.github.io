@@ -19,7 +19,7 @@
   <link rel="icon" type="image/png" href="assets/brand/favicon.png">
   <link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
   <style>
-    /* Subbaan website v1.2.4 · Gruvbox Dark */
+    /* Subbaan website v1.2.5 · Gruvbox Dark */
     :root {
       color-scheme: dark;
       --bg: #1d2021; --panel: #282828; --panel2: #32302f; --raise: #3c3836;
@@ -346,7 +346,7 @@
 
 <footer class="site-footer">
   <div class="wrap footer-inner">
-    <span>© <span id="year">2026</span> Subbaan · Website v1.2.4<span id="built"></span><span id="visits"></span></span>
+    <span>© <span id="year">2026</span> Subbaan · Website v1.2.5<span id="built"></span><span id="visits"></span></span>
     <span><a href="#top">Top ↑</a><a href="https://github.com/subbaan" target="_blank" rel="noopener noreferrer">GitHub</a><a href="https://ko-fi.com/subbaan" target="_blank" rel="noopener noreferrer">Ko-fi</a></span>
   </div>
 </footer>
@@ -376,7 +376,7 @@
 
 <script src="assets/releases.js"></script>
 <script>
-// Subbaan website v1.2.4
+// Subbaan website v1.2.5
 //
 // PROJECTS is the hand-written part: words, screenshots, build steps.
 // Versions, dates, licences and download links come from assets/releases.js,
@@ -400,6 +400,17 @@ const PROJECTS = [
     cardVideo: 'bunzi-loop',
     images: [['bunzi-demo', 'Full demo with sound: from the terminal, through all four levels, and back', {video: true}], ['title', 'Title screen', {pixel: true}], ['sunset-lake', 'Level 2: Sunset Lake', {pixel: true}], ['moonlit-ruins', 'Level 1: Moonlit Ruins, the burrow door', {pixel: true}], ['tropical-island', 'Level 3: Tropical Island, a jellyfish squirts', {pixel: true}], ['crystal-caverns', 'Level 4: Crystal Caverns, a spiky fish leaps', {pixel: true}], ['results', 'A perfect clear on the results screen', {pixel: true}]],
     focus: 'center'
+  },
+  {
+    id: 'prowal', title: 'Prowal', type: 'tool', symbol: '⊞',
+    tagline: 'A pop-up app launcher for Linux: press a key and a grid of icons appears around the mouse pointer.',
+    description: 'Every icon keeps a fixed place relative to the pointer, so after a while you launch things by muscle memory: key, flick, click. Groups open their own grid in place, and an editor that opens instantly lets you drag the layout around. A clean-room successor to apwal, and it imports apwal layouts.',
+    tags: ['C++', 'Qt 6', 'Launcher', 'X11'],
+    points: ['Opens in about 30 ms, with an optional bloom animation, soft shadows and hover labels', 'Groups nested as deep as you like, and named grids for different keys', 'Mouse or keyboard: arrow keys and Enter work as well as clicks', 'Drag-and-drop editor with undo for everything; add apps from your menus or drop .desktop files in', 'An icon browser that shows every icon on the system', 'Floating icons or a panel, with a live preview in Preferences'],
+    needs: ['Linux with X11 (or XWayland)', 'Qt 6.4 or newer; the release binary needs a current Qt 6, as on Arch/Manjaro', 'A compositor for transparency, shadows and animation (optional)'],
+    build: 'git clone https://github.com/subbaan/prowal\ncd prowal\nmake\n./prowal',
+    focus: 'center',
+    images: [['popup-panel', 'The panel look, with labels always shown'], ['popup', 'The floating look: a grid of icons around the pointer'], ['popup-group', 'A group opened in place, with a Back button in its middle'], ['editor', 'The editor: the grid on the left, the selected launcher on the right'], ['icon-picker', 'The icon browser, showing every icon theme and folder'], ['preferences', 'Preferences, Look tab']]
   },
   {
     id: 'radiowave', title: 'Radiowave', type: 'media', symbol: '♫',

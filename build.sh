@@ -14,7 +14,7 @@
 
 set -euo pipefail
 
-VERSION="1.2.0"
+VERSION="1.2.1"
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECTS="${SUBBAAN_PROJECTS:-$(dirname "$ROOT")}"
 GH_USER="subbaan"
@@ -30,6 +30,7 @@ REPOS=(
   "ytseries ytseries"
   "notes notes"
   "waste-tui waste-tui"
+  "prowal prowal"
 )
 
 # site-id  source-path (relative to $PROJECTS)  [lossy]
@@ -64,6 +65,12 @@ IMAGES=(
   "waste-tui waste/images/chat.png"
   "waste-tui waste/images/keymanager.png"
   "waste-tui waste/images/settings.png"
+  "prowal prowal/docs/screenshots/popup.png"
+  "prowal prowal/docs/screenshots/popup-group.png"
+  "prowal prowal/docs/screenshots/popup-panel.png"
+  "prowal prowal/docs/screenshots/editor.png"
+  "prowal prowal/docs/screenshots/icon-picker.png"
+  "prowal prowal/docs/screenshots/preferences.png"
   "gruvbox gruvbox/artifacts/desktop-phrase-main.png"
   "gruvbox gruvbox/artifacts/desktop-fx.png"
 )

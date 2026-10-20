@@ -1,6 +1,6 @@
 # Subbaan website
 
-Version: 1.2.4
+Version: 1.2.5
 
 The source for **https://subbaan.github.io**, a static portfolio of Subbaan's software, with a Ko-fi link.
 It has no framework, CDN, cookies or backend. On the live site only, a small footer counter uses [GoatCounter](https://www.goatcounter.com) (`subbaan.goatcounter.com`), which sets no cookies and stores nothing in the browser. The page is `index.html`; `build.sh` refreshes the generated assets.
@@ -48,6 +48,7 @@ Project popups have shareable links, e.g. `https://subbaan.github.io/#/radiowave
 
 ## Changelog
 
+- **1.2.5**: Added Prowal, the pop-up app launcher, with six screenshots and its v1.0.1 download.
 - **1.2.4**: Removed the bottom Support section and its nav link. The side box now says "buy me a coffee".
 - **1.2.3**: The Support section is now a small, quiet strip instead of a big panel.
 - **1.2.2**: Small cookie-free visit counter in the footer (GoatCounter, live site only).
